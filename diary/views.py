@@ -1,8 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import DiaryEntry
+from .forms import DiaryEntryForm
 
 
 # Create your views here.
 def diary_home(request):
-    entries = DiaryEntry.objects.all()
-    return render(request, "home.html", {"entries": entries})
+    if request.method == "GET":
+        entries = DiaryEntry.objects.all()
+        form = DiaryEntryForm()
+        return render(request, "home.html", {"entries": entries, "form": form})
+    elif request.method == "POST":
+        form = DiaryEntryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/diary/")
