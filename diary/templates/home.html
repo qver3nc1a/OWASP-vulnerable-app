@@ -16,9 +16,8 @@
     <h2>My entries</h2>
 
     {% for entry in entries %}
-        <h3>{{ entry.title }}</h3>
-        <p>Rating: {{ entry.rating }}</p>
-        <p>{{ entry.content }}</p>
+        <h3><a href="{% url 'entry_page' entry.id %}">{{ entry.title }}</a></h3>
+        <p>{{ entry.created_at }}</p>
     {% empty %}
         <p>No entries yet.</p>
     {% endfor %}

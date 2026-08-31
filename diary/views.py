@@ -14,3 +14,8 @@ def diary_home(request):
         if form.is_valid():
             form.save()
             return redirect("/diary/")
+
+
+def entry_page(request, id):
+    entry = DiaryEntry.objects.get(id=id)
+    return render(request, "entry_page.html", {"entry": entry})
